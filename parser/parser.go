@@ -15,15 +15,15 @@ const (
 // Parser interface
 type Parser interface {
 	Parse(reader io.Reader) ([]byte, error)
+	ParseProfile(data []byte) (*Profile, error)
 }
 
 // IGParser struct
 type IGParser struct {
-	tokenizer *html.Tokenizer
 }
 
 // Parse
-func Parse(reader io.Reader) ([]byte, error) {
+func (ip *IGParser) Parse(reader io.Reader) ([]byte, error) {
 	z := html.NewTokenizer(reader)
 
 	for {
@@ -55,8 +55,8 @@ func Parse(reader io.Reader) ([]byte, error) {
 	}
 }
 
-// GetIGProfile return Profile, and error otherwise
-func GetIGProfile(data []byte) (*Profile, error) {
+// ParseProfile return Profile, and error otherwise
+func (ip *IGParser) ParseProfile(data []byte) (*Profile, error) {
 	var profile Profile
 	err := json.Unmarshal(data, &profile)
 	if err != nil {
