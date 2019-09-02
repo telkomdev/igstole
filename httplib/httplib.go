@@ -15,10 +15,11 @@ func HTTPGet(url string) (*http.Response, error) {
 			Timeout: 5 * time.Second,
 		}).Dial,
 		TLSHandshakeTimeout: 5 * time.Second,
-		IdleConnTimeout:     10 * time.Second,
+		//IdleConnTimeout:     10 * time.Second,
 	}
 
 	client := http.Client{
+		Timeout:   time.Second * 5,
 		Transport: transport,
 	}
 
@@ -27,7 +28,7 @@ func HTTPGet(url string) (*http.Response, error) {
 		return nil, err
 	}
 
-	userAgent := randUserAgent()
+	userAgent := randomUserAgent()
 
 	request.Header.Set("User-Agent", userAgent)
 
@@ -39,7 +40,7 @@ func HTTPGet(url string) (*http.Response, error) {
 	return response, nil
 }
 
-func randUserAgent() string {
+func randomUserAgent() string {
 	rand.Seed(time.Now().UnixNano())
 	browsers := []string{"Firefox", "Safari", "Opera", "Flock", "Internet Explorer", "Seamonkey", "Tor Browser", "GNU IceCat", "CriOS", "TenFourFox",
 		"SeaMonkey", "B-l-i-t-z-B-O-T", "Konqueror", "Mobile", "Konqueror", "Netscape", "Chrome", "Dragon", "SeaMonkey", "Maxthon", "IBrowse",
