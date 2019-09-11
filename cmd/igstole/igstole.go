@@ -48,11 +48,15 @@ func main() {
 	for {
 		select {
 		case r := <-downloader.Response:
-			fmt.Println(r.StatusCode)
+			fmt.Println(r.Header)
 		case <-downloader.Done:
 			return
 		}
 	}
+
+	// for r := range downloader.Response {
+	// 	fmt.Println(r.StatusCode)
+	// }
 
 }
 
