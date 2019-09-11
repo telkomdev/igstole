@@ -12,6 +12,8 @@ import (
 	"github.com/telkomdev/igstole/parser"
 )
 
+const Instagram = "https://instagram.com/"
+
 func main() {
 	args := os.Args[1:]
 	if len(args) <= 0 {
@@ -19,7 +21,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	response, err := httplib.HTTPGet(args[0])
+	instagramURL := fmt.Sprintf("%s%s", Instagram, args[0])
+
+	response, err := httplib.HTTPGet(instagramURL)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
