@@ -79,6 +79,11 @@ type Profile struct {
 						} `json:"page_info"`
 						Edges []struct {
 							Node struct {
+								// List of type Name
+								// - GraphImage = instagram post with single image
+								// - GraphVideo = instagram post is a video
+								// - GraphSidecar = instagram post with many videos and images
+								//
 								Typename           string `json:"__typename"`
 								ID                 string `json:"id"`
 								EdgeMediaToCaption struct {
